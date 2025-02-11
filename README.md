@@ -43,6 +43,8 @@ The solution combines machine learning, geospatial analysis, and interactive use
   - Streamlit-powered web interface for inputting mobile phone usage data.
   - Real-time predictions and visualizations.
 
+![](App_Screenshot.png)
+
 ---
 
 ## Getting Started
