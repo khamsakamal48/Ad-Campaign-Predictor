@@ -1,26 +1,3 @@
-<details type="reasoning" done="true" duration="37">
-<summary>Thought for 37 seconds</summary>
-> Alright, so the user wants me to create a README.md file for their project. They mentioned it's part of a capstone project focused on an ad campaign recommender system. The goal is to predict user demographics like age and gender based on mobile phone usage data.
-> 
-> First, I need to make sure the README is comprehensive but concise so that anyone reading it can understand what the project does without diving into the code. I should start with a clear title and a brief description of the project's purpose.
-> 
-> I'll outline the features section next. It should highlight what the application offers, such as demographics prediction, personalized campaigns, geospatial analysis, and an interactive UI. Bullet points will make this easy to read.
-> 
-> Setting up the environment is crucial for new contributors or users. I'll list the prerequisites like Docker and Python version, then provide steps to install dependencies using pip.
-> 
-> Next, building and running the application with Docker commands is important. Including instructions on how to build the Docker image and run it will help users get started quickly.
-> 
-> For usage, I'll explain how to access the app, what inputs are required, and what outputs to expect. This helps users understand the flow without confusion.
-> 
-> Including details about the models used in inference adds transparency. I'll mention the machine learning models for gender and age prediction, along with any pre-trained files needed.
-> 
-> Deployment instructions should cover how to run the app locally and on a cloud platform like AWS EC2, including monitoring tips.
-> 
-> Finally, acknowledging contributions and license information wraps up the README professionally. It shows openness to collaboration and sets clear terms of use.
-> 
-> Throughout this process, I need to ensure that each section is well-structured and easy to follow. The language should be straightforward, avoiding technical jargon where possible. The goal is to make the project accessible to anyone who reads the README.
-</details>
-```markdown
 # Ad Campaign Recommender Capstone Project
 
 A machine learning-based application that predicts user demographics (age and gender) based on mobile phone usage patterns and recommends personalized ad campaigns.
