@@ -144,28 +144,9 @@ def download_file(url):
             stderr=subprocess.PIPE,
             universal_newlines=True  # To handle text output instead of bytes
         )
-
-        # Stream the output in real-time
-        while True:
-            output = process.stdout.readline()
-            if output == '' and process.poll() is not None:
-                break
-
-            if output:
-                print(output, end='')
-
-        # Check for errors
-        if process.returncode != 0:
-            error_output = process.stderr.read().strip()
-            print(f"\nError: {error_output}")
-            return False
-
+        
         print("\nDownload completed successfully!")
-        return True
-
-    except subprocess.CalledProcessError as e:
-        print(f"An error occurred: {str(e)}")
-        return False
+    
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return False
