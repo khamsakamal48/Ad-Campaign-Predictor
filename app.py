@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 import joblib
-import subprocess
+import requests
+from pathlib import Path
 from sklearn.neighbors import BallTree
 
 # Configure the Streamlit page settings with a title, icon, and layout.
@@ -133,22 +134,29 @@ def load_model(file_path: str):
         raise st.error('Model Not Found')
 
 def download_file(url):
-    try:
-        filename = 'age.joblib'
+    # Create the models directory if it doesn't exist
+    models_dir = Path("models")
 
-        # Run curl command in a non-blocking way to capture output
-        process = subprocess.Popen(
-            f'cd models && curl -o {filename} "{url}" && cd ..',
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            universal_newlines=True  # To handle text output instead of bytes
-        )
-        
-        print("\nDownload completed successfully!")
-    
+    # Set the path for the downloaded file
+    file_path = models_dir / "age.joblib"
+
+    try:
+        # Send a GET request to the URL
+        response = requests.get(url, stream=True)
+
+        if response.status_code == 200:
+            # Save the content in chunks
+            with open(file_path, 'wb') as f:
+                for chunk in response.iter_content(1024):
+                    f.write(chunk)
+            print(f"File downloaded successfully to: {file_path}")
+            return True
+        else:
+            print(f"Failed to download file. Status code: {response.status_code}")
+            return False
+
     except Exception as e:
-        print(f"Unexpected error: {str(e)}")
+        print(f"An error occurred: {str(e)}")
         return False
 
 # Mapping dictionaries for predicted gender and age groups.
