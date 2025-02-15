@@ -135,7 +135,7 @@ def download_file(url):
     try:
         response = requests.get(url, stream=True)
         if response.status_code == 200:
-            with open('downloaded_file', 'wb') as f:
+            with open('models/age.joblib', 'wb') as f:
                 for chunk in response.iter_content(1024):
                     f.write(chunk)
             print("File downloaded successfully!")
