@@ -2,7 +2,6 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 import joblib
-import requests
 from pathlib import Path
 from sklearn.neighbors import BallTree
 
@@ -132,32 +131,6 @@ def load_model(file_path: str):
     except FileNotFoundError:
         # Display error message in Streamlit if model file cannot be loaded.
         raise st.error('Model Not Found')
-
-def download_file(url):
-    # Create the models directory if it doesn't exist
-    models_dir = Path("models")
-
-    # Set the path for the downloaded file
-    file_path = models_dir / "age.joblib"
-
-    try:
-        # Send a GET request to the URL
-        response = requests.get(url, stream=True)
-
-        if response.status_code == 200:
-            # Save the content in chunks
-            with open(file_path, 'wb') as f:
-                for chunk in response.iter_content(1024):
-                    f.write(chunk)
-            print(f"File downloaded successfully to: {file_path}")
-            return True
-        else:
-            print(f"Failed to download file. Status code: {response.status_code}")
-            return False
-
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-        return False
 
 # Mapping dictionaries for predicted gender and age groups.
 map_gender = {0: 'Female', 1: 'Male'}
@@ -307,17 +280,10 @@ with col2:
     st.write('')
 
     if st.button('Predict', type='primary', use_container_width=True):
-        # Load the age prediction model from file.
-        try:
-            age_model = joblib.load('models/age.joblib')
 
-        except FileNotFoundError:
-            # Replace with your Dropbox URL
-            url = "https://dl.dropbox.com/scl/fi/zlud7qvvxuw1uyjvfbuh2/age.joblib?rlkey=ujamrqse7c3p8lze2o9t7zt6e&st=d1evu8cp&dl=0"
-            download_file(url)
-
-            age_model = joblib.load('models/age.joblib')
-
+        # Attempt to load age prediction model.
+        age_model = load_model('models/age.joblib')
+        
         # Attempt to load gender prediction model.
         gender_model = load_model('models/gender.joblib')
 
