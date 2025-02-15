@@ -14,4 +14,3 @@ imbalanced-learn
 mlxtend
 streamlit
 watchdog
-requests
