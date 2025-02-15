@@ -131,6 +131,19 @@ def load_model(file_path: str):
         # Display error message in Streamlit if model file cannot be loaded.
         raise st.error('Model Not Found')
 
+def download_file(url):
+    try:
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            with open('downloaded_file', 'wb') as f:
+                for chunk in response.iter_content(1024):
+                    f.write(chunk)
+            print("File downloaded successfully!")
+        else:
+            print(f"Error: {response.status_code}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 # Mapping dictionaries for predicted gender and age groups.
 map_gender = {0: 'Female', 1: 'Male'}
 
@@ -280,7 +293,15 @@ with col2:
 
     if st.button('Predict', type='primary', use_container_width=True):
         # Load the age prediction model from file.
-        age_model = joblib.load('models/age.joblib')
+        try:
+            age_model = joblib.load('models/age.joblib')
+
+        except FileNotFoundError:
+            # Replace with your Dropbox URL
+            url = "https://dl.dropbox.com/scl/fi/zlud7qvvxuw1uyjvfbuh2/age.joblib?rlkey=ujamrqse7c3p8lze2o9t7zt6e&st=d1evu8cp&dl=0"
+            download_file(url)
+
+            age_model = joblib.load('models/age.joblib')
 
         # Attempt to load gender prediction model.
         gender_model = load_model('models/gender.joblib')
