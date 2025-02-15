@@ -138,7 +138,7 @@ def download_file(url):
 
         # Run curl command in a non-blocking way to capture output
         process = subprocess.Popen(
-            f'cd models && curl -o {filename} "{url}"',
+            f'cd models && curl -o {filename} "{url}" && cd ..',
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
