@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 import joblib
+import requests
 from sklearn.neighbors import BallTree
 
 # Configure the Streamlit page settings with a title, icon, and layout.
